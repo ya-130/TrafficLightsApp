@@ -8,22 +8,56 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    private enum CurrentLight {
+        case red, yellow, green
+    }
+    
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var redLight: UIView!
     @IBOutlet weak var yellowLight: UIView!
     @IBOutlet weak var greenLight: UIView!
-
+    
+    private var currentLight = CurrentLight.green
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        redLight.layer.cornerRadius = 75
-        redLight.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.3)
-        yellowLight.layer.cornerRadius = 75
-        yellowLight.backgroundColor = UIColor(red: 255, green: 237, blue: 0, alpha: 0.3)
-        greenLight.layer.cornerRadius = 75
-        greenLight.backgroundColor = UIColor(red: 0, green: 255, blue: 0, alpha: 0.3)
-        
+        startButton.layer.cornerRadius = 10
+        startButton.setTitle("START", for: .normal)
+        redLight.alpha = 0.3
+        yellowLight.alpha = 0.3
+        greenLight.alpha = 0.3
+        print(redLight.frame.width)
     }
-
-
+    
+    override func viewDidLayoutSubviews() {
+        redLight.layer.cornerRadius = stackView.frame.width / 2
+        yellowLight.layer.cornerRadius = stackView.frame.width / 2
+        greenLight.layer.cornerRadius = stackView.frame.width / 2
+        print(redLight.frame.width, "from didlayout")
+    }
+    
+    
+    @IBAction func changeLightButoonPressed() {
+        if startButton.currentTitle == "START" {
+            startButton.setTitle("NEXT", for: .normal)
+        }
+        
+        switch currentLight {
+        case .red:
+            redLight.alpha = 0.3
+            yellowLight.alpha = 1
+            currentLight = .yellow
+        case .yellow:
+            yellowLight.alpha = 0.3
+            greenLight.alpha = 1
+            currentLight = .green
+        case .green:
+            greenLight.alpha = 0.3
+            redLight.alpha = 1
+            currentLight = .red
+        }
+    }
 }
 
