@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         redLight.layer.cornerRadius = stackView.frame.width / 2
         yellowLight.layer.cornerRadius = stackView.frame.width / 2
         greenLight.layer.cornerRadius = stackView.frame.width / 2
-        print(redLight.frame.width, "from didlayout")
     }
     
     
